@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.wxcloudrun.dao.UserSignMapper">
+  <resultMap id="BaseResultMap" type="com.tencent.wxcloudrun.dto.UserSignEntity">
+    <id column="user_key" jdbcType="VARCHAR" property="userKey" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    <result column="sign_time" jdbcType="VARCHAR" property="signTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_key, user_id, create_time, update_time, delete_flag, sign_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_sign
+    where user_key = #{userKey,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_sign
+    where user_id = #{userId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_sign
+    where user_key = #{userKey,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tencent.wxcloudrun.dto.UserSignEntity">
+    insert into user_sign (user_key, user_id, create_time, 
+      update_time, delete_flag, sign_time
+      )
+    values (#{userKey,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=INTEGER}, #{signTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tencent.wxcloudrun.dto.UserSignEntity">
+    insert into user_sign
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userKey != null">
+        user_key,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="signTime != null">
+        sign_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userKey != null">
+        #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="signTime != null">
+        #{signTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tencent.wxcloudrun.dto.UserSignEntity">
+    update user_sign
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="signTime != null">
+        sign_time = #{signTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_key = #{userKey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tencent.wxcloudrun.dto.UserSignEntity">
+    update user_sign
+    set user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      sign_time = #{signTime,jdbcType=VARCHAR}
+    where user_key = #{userKey,jdbcType=VARCHAR}
+  </update>
+</mapper>

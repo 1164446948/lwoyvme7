@@ -1,0 +1,4 @@
+#注释
+spring:
+  profiles:
+    active: local
