@@ -58,7 +58,12 @@ public class signServiceImpl implements signService{
     @Override
     public List<Integer> selectSign(String userId) {
         UserSignEntity userSignEntity = userSignMapper.selectByUserId(userId);
-        List<Integer> signTimeList= JSONObject.parseArray(userSignEntity.getSignTime(), Integer.class);
+        List<Integer> signTimeList=new ArrayList<>();
+        if(userSignEntity==null){
+            return signTimeList;
+        }else {
+            signTimeList = JSONObject.parseArray(userSignEntity.getSignTime(), Integer.class);
+        }
         return signTimeList;
     }
 }
