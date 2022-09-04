@@ -18,14 +18,14 @@ public class signServiceImpl implements signService{
     @Resource
     private UserSignMapper userSignMapper;
     @Override
-    public List<String> updateSignTime(String userId) {
-        List<String> signTimeList=new ArrayList<>();
+    public List<Integer> updateSignTime(String userId) {
+        List<Integer> signTimeList=new ArrayList<>();
         boolean sign=false;
         UserSignEntity userSignEntity = userSignMapper.selectByUserId(userId);
         if(userSignEntity==null){
             Date currentTime = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd");
-            String dateString = formatter.format(currentTime);
+            Integer dateString = Integer.valueOf(formatter.format(currentTime));
             signTimeList.add(dateString);
             String newSignTime=JSON.toJSONString(signTimeList);
             UserSignEntity userSignentity=new UserSignEntity();
@@ -37,14 +37,14 @@ public class signServiceImpl implements signService{
             userSignentity.setDeleteFlag(0);
             userSignentity.setSignTime(newSignTime);
             userSignMapper.insertSelective(userSignentity);
-            signTimeList= JSONObject.parseArray(newSignTime, String.class);
+            signTimeList= JSONObject.parseArray(newSignTime, Integer.class);
             return signTimeList;
         }else {
             String signTime=userSignEntity.getSignTime();
-            signTimeList = JSONObject.parseArray(signTime, String.class);
+            signTimeList = JSONObject.parseArray(signTime, Integer.class);
             Date currentTime = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd");
-            String dateString = formatter.format(currentTime);
+            Integer dateString = Integer.valueOf(formatter.format(currentTime));
             if(!signTimeList.contains(dateString)){
                 signTimeList.add(dateString);
             }
@@ -56,9 +56,9 @@ public class signServiceImpl implements signService{
     }
 
     @Override
-    public List<String> selectSign(String userId) {
+    public List<Integer> selectSign(String userId) {
         UserSignEntity userSignEntity = userSignMapper.selectByUserId(userId);
-        List<String> signTimeList= JSONObject.parseArray(userSignEntity.getSignTime(), String.class);
+        List<Integer> signTimeList= JSONObject.parseArray(userSignEntity.getSignTime(), Integer.class);
         return signTimeList;
     }
 }

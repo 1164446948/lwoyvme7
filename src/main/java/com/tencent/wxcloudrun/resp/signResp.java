@@ -7,6 +7,6 @@ import java.util.List;
 @Setter
 @Getter
 public class signResp extends baseResp {
-    List<String> signTime;
+    List<Integer> signTime;
 
 }

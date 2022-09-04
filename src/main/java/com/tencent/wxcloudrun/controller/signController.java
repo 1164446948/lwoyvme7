@@ -16,14 +16,14 @@ public class signController {
     @PutMapping("/usersign")
     private signResp usersign(@RequestBody @Validated signReq signReq){
         signResp resp=new signResp();
-        List<String> signTime = signService.updateSignTime(signReq.getUserId());
+        List<Integer> signTime = signService.updateSignTime(signReq.getUserId());
         resp.setSignTime(signTime);
         return resp;
     }
     @GetMapping("/selectSign")
     private signResp selectSign(@RequestParam("userId")  String userId){
         signResp resp=new signResp();
-        List<String> signTime = signService.selectSign(userId);
+        List<Integer> signTime = signService.selectSign(userId);
         resp.setSignTime(signTime);
         return resp;
     }

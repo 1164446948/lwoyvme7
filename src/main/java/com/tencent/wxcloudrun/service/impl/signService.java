@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface signService {
 
-    public List<String> updateSignTime(String userId);
+    public List<Integer> updateSignTime(String userId);
 
-    List<String> selectSign(String userId);
+    List<Integer> selectSign(String userId);
 }
